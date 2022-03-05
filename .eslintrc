@@ -1,0 +1,82 @@
+{
+    "plugins": [
+        "import",
+        "@typescript-eslint",
+        "eslint-plugin-prettier",
+        "prettier",
+        "unicorn"
+    ],
+    "extends": [
+        "airbnb-typescript/base",
+        "plugin:@typescript-eslint/base",
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:unicorn/recommended",
+        "plugin:prettier/recommended",
+        "prettier"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 2020,
+        "sourceType": "module",
+        "project": [
+            "tsconfig.json"
+        ]
+    },
+    "parser": "@typescript-eslint/parser",
+    "ignorePatterns": ["sonar-scanner.ts"],
+    "env": {
+        "es6": true,
+        "browser": true,
+        "node": true
+    },
+    "settings": {
+        "import/resolver": {
+            "typescript": {},
+            "node": {
+                "extensions": [
+                    ".js",
+                    ".jsx",
+                    ".ts",
+                    ".tsx"
+                ]
+            }
+        }
+    },
+    "rules": {
+        "semi": "off",
+        "prettier/prettier": [
+            "warn",
+            {
+                "parser": "typescript"
+            }
+        ],
+        "no-param-reassign": [
+            2,
+            {
+                "props": false
+            }
+        ],
+        "no-console": 0,
+        "space-before-function-paren": 0,
+        "no-underscore-dangle": "off",
+        "unicorn/prevent-abbreviations": "off",
+        "unicorn/prefer-module": 0,
+        "unicorn/prefer-node-protocol": 0,
+        "unicorn/no-null": 0,
+        "unicorn/no-array-reduce": 0,
+        "unicorn/prefer-object-from-entries": 0,
+        "unicorn/filename-case": [
+            "error",
+            {
+                "cases": {
+                    "camelCase": true,
+                    "pascalCase": true,
+                    "kebabCase": true
+                }
+            }
+        ],
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-throw-literal": "off",
+        "@typescript-eslint/no-useless-constructor": "error"
+    }
+}

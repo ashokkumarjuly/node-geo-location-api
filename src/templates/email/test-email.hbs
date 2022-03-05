@@ -1,0 +1,21 @@
+{% extends "layout.hbs" %}
+
+{% block header %} {% include "_partial/header.hbs" %} {% endblock %}
+
+{% block main %}
+<tr>
+    <td bgcolor="#ffffff" style="padding: 40px 30px 40px 30px;">
+        <table border="1" cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+                <td>
+                    {{content}}
+                </td>
+            </tr>
+
+        </table>
+    </td>
+</tr>
+
+{% endblock %}
+
+{% block footer %} {% include "_partial/footer.hbs" %} {% endblock %}

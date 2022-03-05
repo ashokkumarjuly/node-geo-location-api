@@ -1,0 +1,458 @@
+openapi: 3.0.1
+info:
+  title: GeoPlaces API
+  description: GeoPlaces API for Node Server
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000/api
+    description: Authentication server (Local)
+  - url: http://localhost:3000/api/v1
+    description: API server v1 (Local)
+tags:
+  - name: Auth
+    description: Authentication APIs
+  - name: User
+    description: User related operations
+  - name: Places
+    description: Geo Master APIs
+
+paths:
+  /auth/login-secret:
+    post:
+      tags:
+        - Auth
+      summary: Send Email with code
+      operationId: Send SMS with OTP Code
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                email:
+                  type: string
+                  format: email
+                  description: Email Id
+      responses:
+        "200":
+          description: Successfull Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IAPIResponse"
+  /auth/login:
+    post:
+      tags:
+        - Auth
+      summary: Login with OTP Code
+      operationId: Verify OTP code
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                email:
+                  type: string
+                  format: email
+                  description: Email Id
+                code:
+                  type: number
+                  pattern: '^\d{36}$'
+                  minLength: 6
+                  maxLength: 6
+                  description: OTP code
+      responses:
+        "200":
+          description: Successfull Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IAPIResponse"
+  /auth/refresh-token:
+    post:
+      tags:
+        - Auth
+      summary: Refresh Token
+      operationId: RefreshToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                refreshToken:
+                  type: string
+                  description: Refresh token
+      responses:
+        "200":
+          description: Successfull Response
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/IAPIResponse"
+                  - properties:
+                      body:
+                        type: object
+                        properties:
+                          token:
+                            type: string
+
+  /users/{id}:
+    get:
+      tags:
+        - User
+      summary: Get User by Id
+      description: Returns a single user
+      operationId: getUserById
+      parameters:
+        - name: id
+          in: path
+          description: UID of user to return
+          required: true
+          schema:
+            type: string
+            format: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/IAPIResponse"
+                  - properties:
+                      body:
+                        type: object
+                        properties:
+                          user:
+                            $ref: "#/components/schemas/User"
+                          token:
+                            type: string
+                          refreshToken:
+                            type: string
+        "401":
+          $ref: "#/components/responses/Unauthorized" # <-----
+        "404":
+          $ref: "#/components/responses/NotFound"
+      security:
+        - JWT: []
+  /users/me:
+    get:
+      tags:
+        - User
+      summary: Get User me
+      description: Returns current user
+      operationId: getUserMe
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/IAPIResponse"
+                  - properties:
+                      body:
+                        $ref: "#/components/schemas/User"
+        "401":
+          $ref: "#/components/responses/Unauthorized" # <-----
+        "404":
+          $ref: "#/components/responses/NotFound"
+      security:
+        - JWT: []
+  /places/address/verify:
+    get:
+      tags:
+        - Places
+      summary: Get/Validate Address
+      description: To validate the provided address by street, streetNumber, town, postalCode and country.
+      operationId: validateAddress
+      parameters:
+        - $ref: "#/components/parameters/limitParam"
+        - $ref: "#/components/parameters/GeoAddressTypeParam"
+        - in: query
+          name: filter
+          style: deepObject
+          allowReserved: true
+          schema:
+            type: object
+            properties:
+              street:
+                type: string
+                default: 135 pilkington avenue
+              town:
+                type: string
+                default: Ataco
+              postalcode:
+                type: string
+                default: B72 1LH
+              country:
+                type: string
+                default: United Kingdom
+              city:
+                type: string
+                default: Birmingham
+              state:
+                type: string
+                default: England
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/IAPIResponse"
+                  - properties:
+                      body:
+                        type: object
+                        properties:
+                          count:
+                            type: number
+                          data:
+                            type: "array"
+                            items:
+                              $ref: "#/components/schemas/AddressList"
+        "404":
+          $ref: "#/components/responses/NotFound"
+  /places/address/weather:
+    get:
+      tags:
+        - Places
+      summary: Get Weather Info
+      description: To get the weather information by passing address.
+      operationId: getWeatherInfoByAddress
+      parameters:
+        - $ref: "#/components/parameters/GeoAddressTypeParam"
+        - $ref: "#/components/parameters/ProductTypeParam"
+        - in: query
+          name: filter
+          style: deepObject
+          allowReserved: true
+          schema:
+            type: object
+            properties:
+              street:
+                type: string
+                default: 135 pilkington avenue
+              town:
+                type: string
+                default: Ataco
+              postalcode:
+                type: string
+                default: B72 1LH
+              country:
+                type: string
+                default: United Kingdom
+              city:
+                type: string
+                default: Birmingham
+              state:
+                type: string
+                default: England
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/IAPIResponse"
+                  - properties:
+                      body:
+                        type: object
+                        properties:
+                          count:
+                            type: number
+                          data:
+                            type: "array"
+                            items:
+                              $ref: "#/components/schemas/WeatherInfo"
+        "401":
+          $ref: "#/components/responses/Unauthorized" # <-----
+        "404":
+          $ref: "#/components/responses/NotFound"
+      security:
+        - JWT: []
+components:
+  securitySchemes:
+    JWT:
+      type: apiKey
+      name: Authorization
+      in: header
+  parameters:
+    offsetParam:
+      in: query
+      name: page
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+      description: Page number.
+    limitParam:
+      in: query
+      name: limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 50
+        default: 1
+      description: The numbers of items to return.
+    GeoAddressTypeParam:
+      in: query
+      name: addressdetails
+      required: true
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 1
+        default: 1
+      description: Address type.
+    ProductTypeParam:
+      in: query
+      name: product
+      description: product types
+      schema:
+        type: string
+        default: astro
+        enum: [astro, civil, civillight, meteo, two]
+    searchTermParam:
+      in: query
+      name: term
+      required: false
+      schema:
+        type: string
+      description: search term.
+    
+  responses:
+    NotFound:
+      description: The specified resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/IAPIErrorResponse"
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/IAPIErrorResponse"
+  schemas:
+    IAPIErrorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+          default: false
+        message:
+          type: string
+          readOnly: true
+        error:
+          type: object
+          readOnly: true
+      required:
+        - code
+        - message
+    IAPIResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          readOnly: true
+        message:
+          type: string
+          readOnly: true
+        body:
+          oneOf:
+            - type: object
+          readOnly: true
+    User:
+      allOf:
+        - properties:
+            uid:
+              type: string
+              format: uuid
+            full_name:
+              type: string
+            firstName:
+              type: string
+            lastName:
+              type: string
+            email:
+              type: string
+              nullable: true
+              format: email
+            status:
+              type: integer
+              format: int32
+            profileCompletion:
+              type: integer
+              format: int32
+            userStatus:
+              type: integer
+              format: int32
+              description: User Status
+    AddressList:
+      type: object
+      properties:
+        place_id:
+          type: integer
+          format: int32
+        lat:
+          type: integer
+          format: int32
+        lon:
+          type: integer
+          format: int32
+        licence:
+          type: string
+        display_name:
+          type: string
+        class:
+          type: string
+        type:
+          type: string
+        boundingbox:
+          type: array
+          items:
+            type: integer
+        address:
+          type: object
+          properties:
+           house_number:
+             type: string
+           road:
+             type: string
+           hamlet:
+             type: string
+           town:
+             type: string
+           village:
+             type: string
+           city:
+             type: string
+           county:
+             type: string
+           state_district:
+             type: string
+           state:
+             type: string
+           postcode:
+             type: string
+           country:
+             type: string
+           country_code:
+             type: string
+    WeatherInfo:
+      type: object
+      properties:
+        product:
+          type: string
+        init:
+          type: integer
+          format: int32
+        dataseries:
+          type: array
+          items:
+            type: object

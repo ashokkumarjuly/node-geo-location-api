@@ -71,6 +71,7 @@ Thumbs.db
 *.wmv
 
 # Env configurations
+.env
 .env.*
 
 .scannerwork/

@@ -41,8 +41,6 @@ export const PublicRoutes = (_config: ICoreConfig): void => {
         _config.app.use(`${API_ROUTE}/test/unit`, express.static(`${AppConfig.testSuite.jestStarePath}`));
         _config.app.use(`${API_ROUTE}/test/coverage`, express.static(`${AppConfig.testSuite.coveragePath}`));
     }
-
-    _config.app.use(`${API_ROUTE_V1}/places`, new GeoPlacesRoutes(_config)._router); // User Routes
 };
 
 export const ApiRoutesV1 = (_config: ICoreConfig): void => {
@@ -50,7 +48,7 @@ export const ApiRoutesV1 = (_config: ICoreConfig): void => {
     JwtValidateApiRoutes(_config.app);
 
     _config.app.use(`${API_ROUTE_V1}/users`, new UserRoutes(_config)._router); // User Routes
-    // _config.app.use(`${API_ROUTE_V1}/places`, new GeoPlacesRoutes(_config)._router); // User Routes
+    _config.app.use(`${API_ROUTE_V1}/places`, new GeoPlacesRoutes(_config)._router); // User Routes
 
     // ADD New Routes Here ....
 };

@@ -110,11 +110,9 @@ export const login =
         try {
             const userRow: IUserAttributes = await config.db.getUserByEmail({ email });
 
-            // const artistInfo: IArtistAttributes = {};
-
             await ValidateIsActiveUserAccount(userRow);
 
-            // TBD will be removed once the email is configured
+            // TBD OTP bypassed on local and dev environment
             let bypassOtpCheck = false;
 
             if (

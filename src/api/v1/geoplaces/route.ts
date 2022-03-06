@@ -4,7 +4,7 @@ import { Router } from 'express';
 import { ICoreConfig } from '../../../@core/ICoreConfig';
 import { RoutePayloadValidator } from '../../../helpers';
 import { getAddressSchema, getWeatherSchema } from './route.validate';
-import { getGeoAddress, getWeatherByGeoAddress } from './controller';
+import { getGeoPlace, getWeatherByGeoPlace } from './controller';
 
 export default class {
     public _router: Router;
@@ -26,11 +26,7 @@ export default class {
          * @apiSuccess {Object} Geo address data.
          * @apiError 404 Address not found.
          */
-        this._router.get(
-            '/address/verify',
-            RoutePayloadValidator(this._config, getAddressSchema),
-            getGeoAddress(this._config)
-        );
+        this._router.get('/verify', RoutePayloadValidator(this._config, getAddressSchema), getGeoPlace(this._config));
 
         /**
          * @api {get} /address/weather Retrieve weather info
@@ -41,9 +37,9 @@ export default class {
          * @apiError 404 Weather data not found.
          */
         this._router.get(
-            '/address/weather',
+            '/weather',
             RoutePayloadValidator(this._config, getWeatherSchema),
-            getWeatherByGeoAddress(this._config)
+            getWeatherByGeoPlace(this._config)
         );
     }
 }

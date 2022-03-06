@@ -30,7 +30,8 @@ export const APP_PATHS = {
         `${API_ROUTE_V1}/logs`,
         `${API_ROUTE_V1}/test/unit`,
         `${API_ROUTE_V1}/test/coverage`,
-        `${API_ROUTE_V1}/auth/test-email`
+        `${API_ROUTE_V1}/auth/test-email`,
+        `${API_ROUTE_V1}/places/verify`
     ],
     Files: {
         // All the paths should be relative to the web root folder. i.e. /server/
@@ -74,7 +75,8 @@ export const SITE_STATUS = {
 
 export const TIME_OUT = {
     RATE_LIMITER_DURATION: 1,
-    RESET_PASSWORD_EXPIRES_IN: 3600
+    RESET_PASSWORD_EXPIRES_IN: 3600,
+    CACHE_EXPIRY_MAX: 43_200
 };
 
 export const LOGGER = {

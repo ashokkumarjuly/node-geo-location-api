@@ -43,6 +43,7 @@ describe('API :: Auth', () => {
             .set('Accept', 'application/json')
             .send({ email: faker.name.firstName() })
             .end(function (err, response) {
+                console.log('POST /api/auth/login-secret... Invalid E-Mail address', err);
                 if (err) return done(err);
 
                 expect(response.statusCode).toBe(400);
@@ -165,42 +166,6 @@ describe('API :: Auth', () => {
                 return done();
             });
     });
-});
-
-describe('API :: Users /users', () => {
-    try {
-        test('GET api/v1/users/me...  To get logged-in user', async () => {
-            // const response = await request
-            //     .get(`/api/v1/users/me`)
-            //     .set('Authorization', `${token}`)
-            //     .set('Accept', 'application/json')
-            //     .expect('Content-Type', /json/);
-
-            // expect(response.status).toBe(200);
-            // expect(response.body.success).toBe(true);
-            // expect(response.body).toEqual(
-            //     expect.objectContaining({
-            //         uid: expect.any(String),
-            //         // email: createObj.email,
-            //         profileCompletion: expect.any(Number),
-            //         country: expect.any(Object),
-            //         account: expect.any(Object),
-            //         eula: expect.any(Object)
-            //     })
-            // );
-            expect(2).toBe(2);
-        });
-
-        test('GET /api/users/:uid... Get user by UID', async () => {
-            expect(2).toBe(2);
-        });
-
-        test('GET /api/users/:uid... Get user by UID - Throw error for Invalid UID', async () => {
-            expect(2).toBe(2);
-        });
-    } catch (err) {
-        console.log('Exception : ', err);
-    }
 });
 
 export { email };

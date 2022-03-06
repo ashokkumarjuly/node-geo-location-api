@@ -36,5 +36,6 @@ module.exports = {
             tsconfig: 'tsconfig.json'
         }
     },
-    setupFilesAfterEnv: ['./bin/jest/jest.setup.js']
+    setupFilesAfterEnv: ['./bin/jest/jest.setup.js'],
+    globalTeardown: './bin/jest/global.teardown.integration.ts'
 };

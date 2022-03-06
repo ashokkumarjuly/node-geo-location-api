@@ -4,7 +4,9 @@ import { ServerError } from '../../../../@core/helpers/errors';
 export default (config: IConfig) => async (): Promise<boolean | Error | null> => {
     // eslint-disable-next-line no-useless-catch
     try {
-        const state = Number(config.mongooseInstance.readyState);
+        const state = await config.mongooseInstance.then((r) => {
+            return Number(r?.connection?.readyState);
+        });
 
         if (state !== 1) throw new ServerError();
 

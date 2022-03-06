@@ -1,6 +1,6 @@
-import { IGetGeoAddressSignature, IGetWeatherByGeoAddressSignature } from '../repo/interfaces';
+import { IGetGeoPlaceSignature, IGetWeatherByGeoPlaceSignature } from '../repo/interfaces';
 
 export default interface Redis {
-    readonly getGeoAddress: IGetGeoAddressSignature;
-    readonly getGeoWeatherInfo: IGetWeatherByGeoAddressSignature;
+    readonly getGeoPlace: IGetGeoPlaceSignature;
+    readonly getGeoWeatherInfo: IGetWeatherByGeoPlaceSignature;
 }

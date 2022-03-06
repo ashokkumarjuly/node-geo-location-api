@@ -10,6 +10,9 @@ import IConfig from '../Config';
 export default (config: IConfig) => {
     return async (data: SendGridMailAttributes): Promise<boolean> => {
         try {
+            if (AppConfig.mail.enabled !== true) {
+                return false;
+            }
             if (AppConfig.isTest) {
                 return true;
             }

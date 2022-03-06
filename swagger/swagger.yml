@@ -159,15 +159,14 @@ paths:
           $ref: "#/components/responses/NotFound"
       security:
         - JWT: []
-  /places/address/verify:
+  /places/verify:
     get:
       tags:
         - Places
       summary: Get/Validate Address
       description: To validate the provided address by street, streetNumber, town, postalCode and country.
       operationId: validateAddress
-      parameters:
-        - $ref: "#/components/parameters/limitParam"
+      parameters:       
         - $ref: "#/components/parameters/GeoAddressTypeParam"
         - in: query
           name: filter
@@ -204,17 +203,10 @@ paths:
                   - $ref: "#/components/schemas/IAPIResponse"
                   - properties:
                       body:
-                        type: object
-                        properties:
-                          count:
-                            type: number
-                          data:
-                            type: "array"
-                            items:
-                              $ref: "#/components/schemas/AddressList"
+                        $ref: "#/components/schemas/AddressList"
         "404":
           $ref: "#/components/responses/NotFound"
-  /places/address/weather:
+  /places/weather:
     get:
       tags:
         - Places
@@ -259,14 +251,7 @@ paths:
                   - $ref: "#/components/schemas/IAPIResponse"
                   - properties:
                       body:
-                        type: object
-                        properties:
-                          count:
-                            type: number
-                          data:
-                            type: "array"
-                            items:
-                              $ref: "#/components/schemas/WeatherInfo"
+                        $ref: "#/components/schemas/WeatherInfo"
         "401":
           $ref: "#/components/responses/Unauthorized" # <-----
         "404":
@@ -307,7 +292,7 @@ components:
         minimum: 0
         maximum: 1
         default: 1
-      description: Address type.
+      description: addressdetails=[0|1], Includes a breakdown of the address into elements.
     ProductTypeParam:
       in: query
       name: product

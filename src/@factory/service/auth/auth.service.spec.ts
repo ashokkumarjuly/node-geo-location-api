@@ -1,11 +1,11 @@
 import { faker } from '@faker-js/faker';
-import { db, mail, serviceBus, wpJobs, cacheLayer } from '../factory';
-import { login, forgetPassword, resetPassword, activateEmail, loginSecret, getTokenByRefreshToken } from './auth.service';
+import { db, mail, geoPlaces, cacheLayer } from '../factory';
+import { login, loginSecret, getTokenByRefreshToken } from './auth.service';
 import logger from '../../../logger';
 import { SECRET_OTP } from '../../../constants';
 import appConfig from '../../../@core/app.config';
 
-const config = { db, mail, logger, serviceBus, wpJobs, cacheLayer };
+const config = { db, mail, logger, geoPlaces, cacheLayer };
 
 describe('Service->Auth::', () => {
     const randomEmail = `${`${
@@ -18,7 +18,7 @@ describe('Service->Auth::', () => {
 
     test('loginSecret... Generate login secret', async () => {
         const data = await loginSecret(config)({ email: randomEmail });
-        expect(data).toBe(String);
+        expect(data).toEqual(expect.any(String));
     });
 
     test('login... Verify the object returned user, token, refreshToken', async () => {

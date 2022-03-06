@@ -50,26 +50,6 @@ export default {
         then: Joi.string().default(30_000),
         otherwise: Joi.string().optional().allow(null).allow('')
     }),
-    DB_CREATE_INDEX: Joi.string().when('DB_ORM_NAME', {
-        is: Joi.string().valid('mongo'),
-        then: Joi.string().required(),
-        otherwise: Joi.string().optional().allow(null).allow('')
-    }),
-    DB_FIND_AND_MODIFY: Joi.string().when('DB_ORM_NAME', {
-        is: Joi.string().valid('mongo'),
-        then: Joi.string().required(),
-        otherwise: Joi.string().optional().allow(null).allow('')
-    }),
-    DB_URL_PARSER: Joi.string().when('DB_ORM_NAME', {
-        is: Joi.string().valid('mongo'),
-        then: Joi.string().required(),
-        otherwise: Joi.string().optional().allow(null).allow('')
-    }),
-    DB_UNIFIED_TOPOLOGY: Joi.string().when('DB_ORM_NAME', {
-        is: Joi.string().valid('mongo'),
-        then: Joi.string().required(),
-        otherwise: Joi.string().optional().allow(null).allow('')
-    }),
     DB_KEEP_ALIVE: Joi.string().when('DB_ORM_NAME', {
         is: Joi.string().valid('mongo'),
         then: Joi.string().default(1),

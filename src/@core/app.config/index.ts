@@ -148,10 +148,6 @@ const appConfig = (): IAppConfig => {
                     connectionOptions: {
                         connectTimeoutMS:
                             Number(process.env.DB_CONNECTION_TIMEOUT) || Number(envVars.DB_CONNECTION_TIMEOUT) || 30_000,
-                        useCreateIndex: (process.env.DB_CREATE_INDEX || envVars.DB_CREATE_INDEX) === 'true',
-                        useFindAndModify: (process.env.DB_FIND_AND_MODIFY || envVars.DB_FIND_AND_MODIFY) === 'true',
-                        useNewUrlParser: (process.env.DB_URL_PARSER || envVars.DB_URL_PARSER) === 'true',
-                        useUnifiedTopology: (process.env.DB_UNIFIED_TOPOLOGY || envVars.DB_UNIFIED_TOPOLOGY) === 'true',
                         keepAlive: Number(process.env.DB_KEEP_ALIVE) || Number(envVars.DB_KEEP_ALIVE) || 1,
                         poolSize: Number(process.env.DB_CONNECTION_MAX) || Number(envVars.DB_CONNECTION_MAX) || 10
                     }

@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 import IConfig from './Config';
-import { IOptions } from '../repo/interfaces/geoplaces/getWeatherByGeoAddress';
+import { IOptions } from '../repo/interfaces/geoplaces/getWeatherByGeoPlace';
 import { emptyStringsToNull } from '../../helpers/util';
 // http://www.7timer.info/bin/api.pl?lon=-1.8164308339635031&lat=52.5487921&product=astro&output=json
 

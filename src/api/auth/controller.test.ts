@@ -3,10 +3,9 @@ import { loginSecret, login, getTokenByRefreshToken } from './controller';
 import { App } from '../../app';
 import logger from '../../logger';
 
-const { service, wpJobs, app } = new App();
+const { service, app } = new App();
 const config = {
     service,
-    wpJobs,
     app,
     logger
 };

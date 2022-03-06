@@ -27,7 +27,7 @@ test('API LOGIN :: POST api/auth/login', (done) => {
         })
         .expect(200)
         .end(function (err, response) {
-            console.log(err);
+            console.log('API LOGIN :: POST api/auth/login', err);
             if (err) return done(err);
             expect(response.body.success).toBe(true);
             expect(response.body.error).toBeUndefined();

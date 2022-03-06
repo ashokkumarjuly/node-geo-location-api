@@ -65,5 +65,10 @@
         "success": {
             "checkDatabaseStatus": "Connection established successfully"
         }
+    },
+    "geoPlace": {
+        "error": {
+            "invalidAddress": "The provided address information is not valid."
+        }
     }
 }

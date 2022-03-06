@@ -1,6 +1,6 @@
 {
     "info": {
-        "_postman_id": "11e79b49-6f4d-4d85-8ce9-a1f0670a17f6",
+        "_postman_id": "3cd669e5-77f9-4c2b-86d2-952105baa046",
         "name": "GeoPlacesAPI",
         "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
     },
@@ -144,7 +144,7 @@
                         "header": [],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\r\n    \"email\": \"fanpagefnft@mailinator.com\",\r\n    \"isResend\": false\r\n}",
+                            "raw": "{\r\n    \"email\": \"admin@mailinator.com\",\r\n    \"isResend\": false\r\n}",
                             "options": {
                                 "raw": {
                                     "language": "json"
@@ -192,17 +192,14 @@
                         "method": "GET",
                         "header": [],
                         "url": {
-                            "raw": "{{API_BASE_URL}}/api/v1/places/address/verify?addressdetails=1&limit=1&filter[street]=135 pilkington avenue&filter[town]=Ataco&filter[postalcode]=B72 1LH&filter[country]=United Kingdom&filter[city]&filter[state]",
+                            "raw": "{{API_BASE_URL}}/api/v1/places/verify?addressdetails=1&filter[street]=135 pilkington avenue&filter[town]=Ataco&filter[postalcode]=B72 1LH&filter[country]=United Kingdom&filter[city]&filter[state]",
                             "host": ["{{API_BASE_URL}}"],
-                            "path": ["api", "v1", "places", "address", "verify"],
+                            "path": ["api", "v1", "places", "verify"],
                             "query": [
                                 {
                                     "key": "addressdetails",
-                                    "value": "1"
-                                },
-                                {
-                                    "key": "limit",
-                                    "value": "1"
+                                    "value": "1",
+                                    "description": "addressdetails=[0|1], Includes a breakdown of the address into elements."
                                 },
                                 {
                                     "key": "filter[street]",
@@ -238,19 +235,22 @@
                     "name": "Get Weather Info",
                     "request": {
                         "method": "GET",
-                        "header": [],
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "{{JWT_TOKEN}}",
+                                "type": "text"
+                            }
+                        ],
                         "url": {
-                            "raw": "{{API_BASE_URL}}/api/v1/places/address/weather?addressdetails=1&limit=1&filter[street]=135 pilkington avenue&filter[town]=Ataco&filter[postalcode]=B72 1LH&filter[country]=United Kingdom&filter[city]&filter[state]&product=astro",
+                            "raw": "{{API_BASE_URL}}/api/v1/places/weather?addressdetails=1&filter[street]=135 pilkington avenue&filter[town]=Ataco&filter[postalcode]=B72 1LH&filter[country]=United Kingdom&filter[city]&filter[state]&product=astro",
                             "host": ["{{API_BASE_URL}}"],
-                            "path": ["api", "v1", "places", "address", "weather"],
+                            "path": ["api", "v1", "places", "weather"],
                             "query": [
                                 {
                                     "key": "addressdetails",
-                                    "value": "1"
-                                },
-                                {
-                                    "key": "limit",
-                                    "value": "1"
+                                    "value": "1",
+                                    "description": "addressdetails=[0|1], Includes a breakdown of the address into elements."
                                 },
                                 {
                                     "key": "filter[street]",

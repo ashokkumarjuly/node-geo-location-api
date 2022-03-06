@@ -34,7 +34,7 @@ class Server {
     private startHttp(_server: http.Server, port: number, host: string): void {
         this._server = _server
             .listen(port, host, () => {
-                const logPort = `[p ${process.pid}]:: API Server environment ${APP_CONFIG.env} is Listening at port ${port}, Host ${host}, Database::${APP_CONFIG.modelDb.sequelize.connectionOptions.dialect}:${APP_CONFIG.modelDb.host}:${APP_CONFIG.modelDb.port}`;
+                const logPort = `[p ${process.pid}]:: API Server environment ${APP_CONFIG.env} is Listening at port ${port}, Host ${host}, Database::${APP_CONFIG.modelDb.DB_ORM_NAME}:${APP_CONFIG.modelDb.host}:${APP_CONFIG.modelDb.port}`;
                 console.log(`*********\n${logPort}*********\n`);
                 logger.info(logPort);
                 if (process.send !== undefined) {

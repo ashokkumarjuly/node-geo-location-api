@@ -108,10 +108,6 @@ export interface IAppConfig {
         mongo: {
             connectionOptions: {
                 connectTimeoutMS: number;
-                useCreateIndex: boolean;
-                useFindAndModify: boolean;
-                useNewUrlParser: boolean;
-                useUnifiedTopology: boolean;
                 keepAlive: number;
                 poolSize: number;
             };

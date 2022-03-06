@@ -1,21 +1,11 @@
 import { faker } from '@faker-js/faker';
-import {
-    connectWallet,
-    createUser,
-    getUserById,
-    getUsers,
-    showMe,
-    updateUser,
-    uploadProfileImage,
-    updateEula
-} from './controller';
+import { createUser, getUserById, getUsers, showMe, updateUser } from './controller';
 import { App } from '../../../app';
 import logger from '../../../logger';
 
-const { service, wpJobs, app } = new App();
+const { service, app } = new App();
 const config = {
     service,
-    wpJobs,
     app,
     logger
 };

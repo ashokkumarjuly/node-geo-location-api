@@ -4,17 +4,17 @@ import { ICoreConfig } from '../../../@core/ICoreConfig';
 import { catchErrors, sendApiResponse } from '../../../helpers';
 // import { getURLFromRequest } from '../../../helpers/util';
 
-export const getGeoAddress = (config: ICoreConfig): ExpressHanlder =>
+export const getGeoPlace = (config: ICoreConfig): ExpressHanlder =>
     catchErrors(config, async (req, res) => {
-        const { filter, limit, addressdetails }: any = req.query;
+        const { filter, addressdetails }: any = req.query;
 
-        config.logger.info({ type: 'API request', fn: 'getGeoAddress', query: req.query });
+        config.logger.info({ type: 'API request', fn: 'getGeoPlace', query: req.query });
 
-        const result = await config.service.getGeoAddress({ filter, limit, addressdetails });
+        const result = await config.service.getGeoPlace({ filter, addressdetails });
 
         config.logger.info({
             type: 'API Response',
-            fn: 'getGeoAddress',
+            fn: 'getGeoPlace',
             resp: 'success',
             result: result ? result.length : 0
         });
@@ -22,17 +22,17 @@ export const getGeoAddress = (config: ICoreConfig): ExpressHanlder =>
         sendApiResponse(res, req.t('general.success.list'), result);
     });
 
-export const getWeatherByGeoAddress = (config: ICoreConfig): ExpressHanlder =>
+export const getWeatherByGeoPlace = (config: ICoreConfig): ExpressHanlder =>
     catchErrors(config, async (req, res) => {
-        const { filter, limit, addressdetails, product }: any = req.query;
+        const { filter, addressdetails, product }: any = req.query;
 
-        config.logger.info({ type: 'API request', fn: 'getWeatherByGeoAddress', query: req.query });
+        config.logger.info({ type: 'API request', fn: 'getWeatherByGeoPlace', query: req.query });
 
-        const result = await config.service.getWeatherByGeoAddress({ filter, limit, product, addressdetails });
+        const result = await config.service.getWeatherByGeoPlace({ filter, product, addressdetails });
 
         config.logger.info({
             type: 'API Response',
-            fn: 'getWeatherByGeoAddress',
+            fn: 'getWeatherByGeoPlace',
             resp: 'success',
             result: result ? result.length : 0
         });

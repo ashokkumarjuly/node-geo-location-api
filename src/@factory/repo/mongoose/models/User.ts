@@ -1,9 +1,9 @@
 import isEmail from 'validator/lib/isEmail';
 import { v4 as uuidv4 } from 'uuid';
 import { Schema, Model, Document } from 'mongoose';
-import mongoConnection from './mongooseConnection';
 import { IUserAttributes } from '../../interfaces';
 import { APP_ROLES_ARR, APP_ROLES } from '../../../../constants';
+import mongoose from 'mongoose';
 
 type IUserCreationAttributes = Omit<IUserAttributes, 'id'>;
 
@@ -13,8 +13,8 @@ type UserModel = Model<IUserDocument>;
 
 const UserSchema = new Schema<IUserDocument, UserModel>(
     {
-        firstName: { type: String, required: true, trim: true, lowercase: true },
-        lastName: { type: String, required: false, trim: true, lowercase: true },
+        firstName: { type: String, required: false, trim: true },
+        lastName: { type: String, required: false, trim: true },
         email: {
             type: String,
             required: true,
@@ -26,7 +26,7 @@ const UserSchema = new Schema<IUserDocument, UserModel>(
         password: { type: String, required: false, private: true },
         uid: { type: String, default: uuidv4 },
         phoneCode: { type: String, required: false, trim: true, lowercase: true },
-        phoneNo: { type: String, required: false, trim: true, lowercase: true },
+        phoneNo: { type: String, required: false, trim: true },
         profileImage: { type: String, required: false, trim: true },
         address: { type: String, required: false, trim: true },
         address2: { type: String, required: false, trim: true },
@@ -48,11 +48,6 @@ const UserSchema = new Schema<IUserDocument, UserModel>(
     { timestamps: true }
 );
 
-// Virtual for user's full name
-UserSchema.virtual('fullName').get(function (this: IUserDocument) {
-    return `${this.firstName} ${this.lastName}`;
-});
-
 /**
  * Check if email is taken
  * @param {string} email - The user's email
@@ -64,6 +59,6 @@ UserSchema.statics.isEmailTaken = async function (email, excludeUserId) {
     return !!user;
 };
 
-export const User = mongoConnection.model<IUserDocument, UserModel>('User', UserSchema);
+export const User = mongoose.model<IUserDocument, UserModel>('User', UserSchema);
 
 export default User;

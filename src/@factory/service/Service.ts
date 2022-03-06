@@ -1,5 +1,5 @@
 import { ILoginSignature, ILoginSecretSignature, IRefreshTokenSignature } from '../repo/interfaces/auth';
-import { IGetGeoAddressSignature } from '../repo/interfaces/geoplaces';
+import { IGetGeoPlaceSignature } from '../repo/interfaces/geoplaces';
 import { CheckDatabaseStatusSignature } from '../repo/interfaces/server';
 import {
     IGetUserByIdSignature,
@@ -25,7 +25,7 @@ export default interface Service {
 
     readonly checkDatabaseStatus: CheckDatabaseStatusSignature;
 
-    readonly getGeoAddress: IGetGeoAddressSignature;
+    readonly getGeoPlace: IGetGeoPlaceSignature;
 
-    readonly getWeatherByGeoAddress: IGetGeoAddressSignature;
+    readonly getWeatherByGeoPlace: IGetGeoPlaceSignature;
 }

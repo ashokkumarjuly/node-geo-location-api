@@ -9,38 +9,18 @@ const rename = require('gulp-rename');
 const tsProject = ts.createProject('tsconfig.json');
 const destBase = './dist';
 const destTsfolder = `${destBase}/src`;
-const pathToCopy = [
-    'package.json',
-    'package-lock.json',
-    './src/public/**',
-    './src/translator/**',
-    './src/templates/**',
-    './src/contract/**'
-];
+const pathToCopy = ['package.json', 'package-lock.json', './src/public/**', './src/translator/**', './src/templates/**'];
 
 let isProduction = false;
 
 // const { src } = gulp;
 let envName = '.env';
 switch (process.env.NODE_ENV) {
-    case 'staging':
-        envName = `.env.staging`;
-        break;
-    case 'production':
-        isProduction = false;
-        envName = `.env.production`;
-        break;
     case 'testing':
         envName = `.env.testing`;
         break;
-    case 'qa':
-        envName = `.env.qa`;
-        break;
-    case 'development':
-        envName = `.env.development`;
-        break;
     default:
-        envName = `.env.local`;
+        envName = `.env`;
 }
 
 const envVariables = require('dotenv').config().parsed;

@@ -4,7 +4,6 @@
 import * as Joi from 'joi';
 
 export const getAddressSchema = Joi.object().keys({
-    limit: Joi.number().min(1).max(100).required(),
     addressdetails: Joi.number().min(0).required(),
     filter: Joi.object({
         street: Joi.alternatives().try(Joi.number(), Joi.string().min(2).max(100)).required(),

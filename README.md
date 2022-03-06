@@ -31,13 +31,13 @@ This is a GeoPlaces application for building REST APIs in Node.js using TypeScri
 
 -   TypeScript : Typescript support and compilation is enabled
 -   Code Linting: Uses the airbnb-base, prettier style guide with ESLint parsing modern ES8+ syntax and husky added with lint-staged.
--   Debugging: To enable debugging sequelize query logs & nodemailer emails by setting DEBUG env variable. If DEBUG env variable is not set, nothing is displayed to the console.
+-   Debugging: To enable debugging db ORM query logs & nodemailer emails by setting DEBUG env variable true. If DEBUG env variable is not set, nothing is displayed to the console.
 -   API parameter validation via JOI: Validate body, params, query of a request (via middleware) and return a response with errors; if any of the configured validation rules fail. You won't anymore need to make your route handler dirty with such validations.
 -   Secure app via helmet: Helmet helps secure Express apps by setting various HTTP headers.
--   winston: To capture logs in a file and used with automated rotation of Express/Connect logs or anything else that writes to a file on a regular basis that needs to be rotated based on date, a size limit or combination and remove old log files based on count or elapsed days.
--   passport with JWT support | Authentication middleware for Nodejs
+-   Winston: To capture logs in a file and used with automated rotation of Express/Connect logs or anything else that writes to a file on a regular basis that needs to be rotated based on date, a size limit or combination and remove old log files based on count or elapsed days.
+-   PassportJs with JWT support | Authentication middleware for Nodejs
 -   rate-limiter-flexible: To limit number of actions by key and protects from DDoS and brute force attacks at any scale.
--   sequelizejs / Mongoose: ORM for Node application and supports dialects MySQL / MongoDb
+-   sequelizejs / Mongoose: ORM for Node application and supports dialects MongoDb
 -   The interaction between API layer, Service layer and database layer will be done via DI, and the code structure follows the principle of 3s layer architecture.
 -   Translation support added for the api response messages.
 
@@ -60,15 +60,18 @@ This is a GeoPlaces application for building REST APIs in Node.js using TypeScri
     -   @core: Core files for bootstraping application with express, middleware. resuable libraries and helpers
     -   @factory
         -   cache-layer: Cache factory which contains caching services like redis.
+        -   geoplaces: Geo Location factory which contains service files to fetch from 3rd party apis.
         -   mail: mail factory which contains mailer services.
-        -   models: database ORM models, ORM instance and interfaces.
-            -   interfaces: contains interface files.
-            -   sequelizes: contains sequelize models and connection instance.
         -   repo: database service layer which contains db crud services.
+            -   interfaces: contains interface files.
+            -   mongoose: contains mongoose models and repository service methods
+                -   models: mongoose ORM models, ORM instance and connection.
+            -   sequelizes: contains sequelize models and repository service methods
+                -   models: sequelize ORM models, ORM instance and connection.
         -   service: service layer, i.e service factory which contains all the service files needed for the application.
     -   @interfaces: interfaces which are used for the typescript static typechecking across applications.
     -   @routes: Contains the application routes.
-    -   api: presetaton/API layer which contain all the API controllers.
+    -   api: presetaton/API layer which contain all the API controllers, routes and route schema.
     -   constants: Site constants are maintained in this folder
     -   helpers: Comman resuable helper functions.
     -   lib: Common resuable library function are maintained in this folder.
@@ -79,10 +82,7 @@ This is a GeoPlaces application for building REST APIs in Node.js using TypeScri
     -   server.ts : Entry file to run
 -   tests
 -   .editorconfig - editor configurations\*
--   .env - app common Configurations\*
--   .env*development - development Configurations*
--   .env*production - production Configurations*
--   .env*test - test Configurations*
+-   .env-sample - app common Configurations\*
 -   .eslintrc - code linter\*
 -   .prettierrc - code linter used with eslint\*
 -   package.json - project dependencies and dev dependencies
@@ -95,7 +95,7 @@ This is a GeoPlaces application for building REST APIs in Node.js using TypeScri
 -   Node.js - version 16x
 -   TypeScript - version 4x
 -   NPM - version 8x
--   MySQL 8x / Mongo DB [setup on local or use via Docker by referring steps on the below line]
+-   Mongo DB [setup on local or use via Docker by referring steps on the below line]
 
 #### Docker for local development:
 
@@ -134,24 +134,24 @@ $ cd myproject
 $ npm install
 ```
 
-###### To start in local development mode with auto reload feature on code change.
+#### To start in local development mode with auto reload feature on code change.
 
 ```sh
 # To run local server
-$ cp .env.sample .env
+$ cp .env-sample .env
 $ npm run local
 ```
 
-###### To start the integration test pls configure the file .env.testing and run the below code in terminal.
+#### To start the integration test pls configure the file .env.testing and run the below code in terminal.
 
 ```sh
-$ cp .env.sample .env.testing
+$ cp .env-sample .env.testing
 $ npm run test:integration
 or
 $ npm run test:unit
 ```
 
-###### To verify and fix the code linting
+#### To verify and fix the code linting
 
 ```sh
 $ npm run lint
@@ -186,28 +186,6 @@ $ npm run lint:fix
     $ npm run start
     ```
 
--   Other Environments. [Refer scripts section for additional info]
-
-    #### Step1: To build
-
-    ```sh
-    $ cd /var/www/{{project_folder}}
-    $ git pull origin {{branch}}
-    $ npm install
-    $ npm run build:{{environment}}
-    ```
-
-    #### Step2: To Run Node server
-
-    ```sh
-    $ cd /var/www/{{target_folder}}
-    $ mkdir logs     //Give necessary permissions to write
-    $ mkdir uploads  //Give necessary permissions to write
-    $ cp /var/www/{{project_folder}}/dist  .
-    $ npm install
-    $ npm run start:{{environment}}
-    ```
-
 ---
 
 ## Additional
@@ -240,8 +218,10 @@ In a collaborative project, it's always a pain when you have to work on files no
 
 ---
 
-##### Doc Links: [*Only for local and dev envrionment]
+### Doc Links: [*Only for local and dev envrionment]
 
--   For Swagger documentation by visiting http://localhost:3000/api/swagger
+##### \*Use the credentials configured in env for visiting the swagger document.
+
+-   For Swagger documentation, visit http://localhost:3000/api/swagger
 -   For coverage report, visit http://localhost:3000/api/test/coverage
 -   For unit test report, visit http://localhost:3000/api/test/unit

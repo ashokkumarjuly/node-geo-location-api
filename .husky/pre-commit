@@ -1,0 +1,11 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+### Auto Format
+npx lint-staged
+
+### Verfiy Build
+npm run compileTs
+
+### Verify Test
+# npm run test:unit

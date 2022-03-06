@@ -1,0 +1,15 @@
+node_modules
+bin
+dist
+dist-prod
+logs
+docs
+templates
+migrations
+tests
+coverage
+src/_tests_
+/**/*.test.ts
+/**/*.spec.ts
+package-scripts.js
+@types

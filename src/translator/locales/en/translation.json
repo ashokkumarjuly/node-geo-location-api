@@ -1,0 +1,74 @@
+{
+    "general": {
+        "label": {
+            "user": "User",
+            "Resource": "Resource",
+            "Artist": "Artist"
+        },
+        "success": {
+            "list": "Record Success."
+        },
+        "error": {
+            "list": "Record Success failed.",
+            "JoiValidationError": "API Validation Error: \n {{detail}}",
+            "SequelizeDatabaseError": "Database Error: \n {{detail}}",
+            "SequelizeUniqueConstraintError": "Unique Constraint Error: \n {{detail}}",
+            "SequelizeForeignKeyConstraintError": "ForeignKey Constraint Error: \n {{detail}}",
+            "modelNotFound": "{{entityName}} record not found",
+            "expiredJwtTokenError": "JWT token expired",
+            "expiredResetPasswordToken": "Reset Password token expired.",
+            "forbidden": "Forbidden: Not allowed to access {{detail}}",
+            "invalidCredentials": "Credential {{entityName}} is invalid",
+            "invalidMarketplaceApiToken": "Market place token mismatch.",
+            "invalidJwtToken": "invalid JWT token",
+            "invalidResetPasswordToken": "Invalid Reset Password Token",
+            "missingJwtToken": "Missing JWT Token",
+            "missingJwtTokenExtractor": "Missing JWT token extractor",
+            "notFound": "{{entityName}} Resouce not found",
+            "unAuthorized": "You are not authorized to module {{entityName}}",
+            "recordAlreadyExist": "{{entityName}} Record already exist.",
+            "serviceUnavilable": "Service Unavilable"
+        }
+    },
+    "auth": {
+        "success": {
+            "loginSecret": "We have sent you a verification code, please check your email.",
+            "register": "registration is successful",
+            "logout": "You have logged out of the application",
+            "forgetPassword": "An email has been sent to the provided address ({{email}}) containing a link with your recovery token.",
+            "resetPassword": "Your password has been changed sucessfully. You can log in.",
+            "showEmailVerification": "Email Verification token valid for ... user: {{uid}}",
+            "activateEmail": "Your email verified",
+            "login": "Verified successfully",
+            "resendLoginSecret": "OTP has been successfully re-sent, please check your email."
+        },
+        "error": {
+            "forgetPassword": "user with {{email}} - tried to remind the password, but email does not exist.",
+            "emailNotVerfied": "Authentication failed. Email address not verified.",
+            "InvalidUserAccountStatus": "Invalid user account status",
+            "invalidVerificationCode": "Invalid verification code",
+            "resendCodeAfter": "Please retry after {{time}} for verification code. "
+        }
+    },
+    "user": {
+        "success": {
+            "createUser": "User has been successfully created",
+            "updatePassword": "Password has been updated successfully",
+            "updateUser": "User has been updated successfully",
+            "deleteUser": "User has been deleted successfully"
+        },
+        "error": {
+            "userAlreadyExist": "There is an user account with the email-id"
+        }
+    },
+    "server": {
+        "success": {
+            "checkDatabaseStatus": "Connection established successfully"
+        }
+    },
+    "geoPlace": {
+        "error": {
+            "invalidAddress": "The provided address information is not valid."
+        }
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "name": "GeoPlaces API-Document",
+    "version": "0.0.1",
+    "description": "Api docs of GeoPlaces",
+    "title": "API-Document",
+    "url": "http://localhost:3000/api",
+    "sampleUrl": "http://localhost:3000/api/docs/html",
+    "template": {
+        "forceLanguage": "en",
+        "withCompare": true,
+        "withGenerator": true,
+        "aloneDisplay": false
+    }
+}

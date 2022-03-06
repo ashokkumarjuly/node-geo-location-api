@@ -1,0 +1,292 @@
+{
+    "info": {
+        "_postman_id": "3cd669e5-77f9-4c2b-86d2-952105baa046",
+        "name": "GeoPlacesAPI",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Server",
+            "item": [
+                {
+                    "name": "Check Server status",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{API_BASE_URL}}/api/server/health",
+                            "host": ["{{API_BASE_URL}}"],
+                            "path": ["api", "server", "health"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Check Database status",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{API_BASE_URL}}/api/server/check-db",
+                            "host": ["{{API_BASE_URL}}"],
+                            "path": ["api", "server", "check-db"]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "User",
+            "item": [
+                {
+                    "name": "Get User By Id",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "{{JWT_TOKEN}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{API_BASE_URL}}/api/v1/users/e7c53800-6372-4fb4-8a98-615028fb3315",
+                            "host": ["{{API_BASE_URL}}"],
+                            "path": ["api", "v1", "users", "e7c53800-6372-4fb4-8a98-615028fb3315"],
+                            "query": [
+                                {
+                                    "key": "limit",
+                                    "value": "1",
+                                    "disabled": true
+                                },
+                                {
+                                    "key": "page",
+                                    "value": "0",
+                                    "disabled": true
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get Me",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "{{JWT_TOKEN}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{API_BASE_URL}}/api/v1/users/me",
+                            "host": ["{{API_BASE_URL}}"],
+                            "path": ["api", "v1", "users", "me"]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Auth",
+            "item": [
+                {
+                    "name": "Login",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "var response = JSON.parse(responseBody);\r",
+                                    "\r",
+                                    "if(response !== null){\r",
+                                    "tests[\"token available\"] = response.body.token !== null && response.body.token !== undefined;\r",
+                                    "if(response.body.token !== null && response.body.token !== undefined){\r",
+                                    "pm.environment.set(\"JWT_TOKEN\", response.body.token)\r",
+                                    "}\r",
+                                    "else{\r",
+                                    "var msg = \"code: \" + response.code + \" msg: \" + response.message;\r",
+                                    "tests[msg] = false;\r",
+                                    "}\r",
+                                    "}"
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n\"email\":\"admin@mailinator.com\",\n\"code\":\"111111\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{API_BASE_URL}}/api/auth/login",
+                            "host": ["{{API_BASE_URL}}"],
+                            "path": ["api", "auth", "login"]
+                        },
+                        "description": "Login"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Send Login OTP",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"email\": \"admin@mailinator.com\",\r\n    \"isResend\": false\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{API_BASE_URL}}/api/auth/login-secret",
+                            "host": ["{{API_BASE_URL}}"],
+                            "path": ["api", "auth", "login-secret"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Refresh Token",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"refreshToken\": \"JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVpZCI6ImNmMmI3OWYyLTFhMWUtMTFlYy1iMTk5LTAwMGQzYTVmOTUwNiJ9LCJqdGkiOiIzNGM4ZjViMi0xMDRlLTRhYzYtODE5ZC04N2YyZjRkYzRlMjQiLCJpYXQiOjE2MzQ2NjYxNzMsImV4cCI6MTY3MDY2NjE3M30.RUlJBOL-42K_axgyR14SLyYtzKenDW0oMBMYa8JkdGQ\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{API_BASE_URL}}/api/auth/refresh-token",
+                            "host": ["{{API_BASE_URL}}"],
+                            "path": ["api", "auth", "refresh-token"]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Places",
+            "item": [
+                {
+                    "name": "Get/Validate Address",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{API_BASE_URL}}/api/v1/places/verify?addressdetails=1&filter[street]=135 pilkington avenue&filter[town]=Ataco&filter[postalcode]=B72 1LH&filter[country]=United Kingdom&filter[city]&filter[state]",
+                            "host": ["{{API_BASE_URL}}"],
+                            "path": ["api", "v1", "places", "verify"],
+                            "query": [
+                                {
+                                    "key": "addressdetails",
+                                    "value": "1",
+                                    "description": "addressdetails=[0|1], Includes a breakdown of the address into elements."
+                                },
+                                {
+                                    "key": "filter[street]",
+                                    "value": "135 pilkington avenue"
+                                },
+                                {
+                                    "key": "filter[town]",
+                                    "value": "Ataco"
+                                },
+                                {
+                                    "key": "filter[postalcode]",
+                                    "value": "B72 1LH"
+                                },
+                                {
+                                    "key": "filter[country]",
+                                    "value": "United Kingdom"
+                                },
+                                {
+                                    "key": "filter[city]",
+                                    "value": null
+                                },
+                                {
+                                    "key": "filter[state]",
+                                    "value": null
+                                }
+                            ]
+                        },
+                        "description": "To validate the provided address by street, streetNumber, town, postalCode and country. "
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get Weather Info",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "{{JWT_TOKEN}}",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{API_BASE_URL}}/api/v1/places/weather?addressdetails=1&filter[street]=135 pilkington avenue&filter[town]=Ataco&filter[postalcode]=B72 1LH&filter[country]=United Kingdom&filter[city]&filter[state]&product=astro",
+                            "host": ["{{API_BASE_URL}}"],
+                            "path": ["api", "v1", "places", "weather"],
+                            "query": [
+                                {
+                                    "key": "addressdetails",
+                                    "value": "1",
+                                    "description": "addressdetails=[0|1], Includes a breakdown of the address into elements."
+                                },
+                                {
+                                    "key": "filter[street]",
+                                    "value": "135 pilkington avenue"
+                                },
+                                {
+                                    "key": "filter[town]",
+                                    "value": "Ataco"
+                                },
+                                {
+                                    "key": "filter[postalcode]",
+                                    "value": "B72 1LH"
+                                },
+                                {
+                                    "key": "filter[country]",
+                                    "value": "United Kingdom"
+                                },
+                                {
+                                    "key": "filter[city]",
+                                    "value": null
+                                },
+                                {
+                                    "key": "filter[state]",
+                                    "value": null
+                                },
+                                {
+                                    "key": "product",
+                                    "value": "astro",
+                                    "description": "(any of \"astro\", \"civil\", \"civillight\", \"meteo\" or \"two\")"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        }
+    ]
+}

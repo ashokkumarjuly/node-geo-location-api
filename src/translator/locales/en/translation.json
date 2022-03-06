@@ -63,7 +63,7 @@
     },
     "server": {
         "success": {
-            "checkDatabaseStatus": "Connection established successfully"
+            "checkDatabaseStatus": "DB Connection success"
         }
     },
     "geoPlace": {

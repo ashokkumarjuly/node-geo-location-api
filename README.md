@@ -1,4 +1,4 @@
-# GeoPlaces NFT API Server
+# GeoPlaces API Server
 
 ## Overview
 
